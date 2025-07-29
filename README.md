@@ -1,4 +1,4 @@
-# loki-system-metrics-agent (Modern C++ & Prometheus)
+# system-metrics-visualization-agent (Modern C++ & Prometheus)
 - A lightweight and extensible system health monitoring agent written in modern C++.
 - Built with [prometheus-cpp](https://github.com/jupp0r/prometheus-cpp), it exposes essential system metrics  
   such as CPU usage, memory usage, and disk I/O through a Prometheus-compatible HTTP endpoint.
@@ -29,8 +29,8 @@ sudo apt update
 sudo apt install libcurl4-openssl-dev
 
 # Clone the repository
-git clone https://github.com/loki2001-dev/loki-system-metrics-agent.git
-cd sys-metrics-agent
+git clone https://github.com/loki2001-dev/system-metrics-visualization-agent.git
+cd sys-metrics-visualization-agent
 
 # Initialize submodule
 git submodule update --init --recursive
