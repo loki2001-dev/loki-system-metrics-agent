@@ -23,9 +23,15 @@ INCLUDE_DIRECTORIES(
         3rdparty/prometheus-cpp/pull/include
 )
 
+# GLOB
+FILE(GLOB_RECURSE METRICS_SOURCES
+        "${PROJECT_SOURCE_DIR}/metrics/*.cpp"
+)
+
 # DEFINE executable files
 ADD_EXECUTABLE(loki-system-metrics-agent
         main.cpp
+        ${METRICS_SOURCES}
 )
 
 # LINK
