@@ -23,15 +23,21 @@
 ## Build Instructions
 ### Example
 ```bash
+sudo apt update
+
+# Install the libcurl4-openssl-dev package(for. prometheus-cpp).
+sudo apt install libcurl4-openssl-dev
+
 # Clone the repository
 git clone https://github.com/loki2001-dev/loki-system-metrics-agent.git
 cd sys-metrics-agent
 
-# Initialize prometheus-cpp submodule
+# Initialize submodule
 git submodule update --init --recursive
 
 # Build the project
+rm -rf build
 mkdir -p build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-make
+cmake --build .
