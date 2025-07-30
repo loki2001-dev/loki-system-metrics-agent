@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.28)
-PROJECT(loki-system-metrics-agent)
+PROJECT(system-metrics-visualization-agent)
 
 # OPTION (Standard)
 SET(CMAKE_CXX_STANDARD 17)
@@ -26,16 +26,17 @@ INCLUDE_DIRECTORIES(
 # GLOB
 FILE(GLOB_RECURSE METRICS_SOURCES
         "${PROJECT_SOURCE_DIR}/metrics/*.cpp"
+        "${PROJECT_SOURCE_DIR}/metrics/*.h"
 )
 
 # DEFINE executable files
-ADD_EXECUTABLE(loki-system-metrics-agent
+ADD_EXECUTABLE(system-metrics-visualization-agent
         main.cpp
         ${METRICS_SOURCES}
 )
 
 # LINK
-TARGET_LINK_LIBRARIES(loki-system-metrics-agent
+TARGET_LINK_LIBRARIES(system-metrics-visualization-agent
         prometheus-cpp::core
         prometheus-cpp::pull
 )
