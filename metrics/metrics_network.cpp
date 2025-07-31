@@ -74,13 +74,17 @@ void metrics_network::update() {
                     // received bytes (field 1 after iface)
                     iss >> rx_bytes;
                     // skip next 7 fields (packets, errs, drop, fifo, frame, compressed, multicast)
-                    for (int i = 0; i < 7; ++i) iss >> std::ws;
+                    for (int i = 0; i < 7; ++i) {
+                        std::string tmp;
+                        iss >> tmp;
+                    }
                     // transmitted bytes (field 9 after iface)
                     iss >> tx_bytes;
                     return rx ? rx_bytes : tx_bytes;
                 }
             }
         }
+        return 0.0;
     };
 
     try {
