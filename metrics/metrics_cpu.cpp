@@ -1,9 +1,9 @@
 #include "metrics_cpu.h"
 #include <fstream>
 #include <iomanip>
-#include <iostream>
 #include <string>
 #include <sstream>
+#include <spdlog/spdlog.h>
 
 metrics_cpu::metrics_cpu(std::shared_ptr<prometheus::Registry> registry)
     : _prevTotal(0), _prevIdle(0) {
@@ -22,7 +22,7 @@ void metrics_cpu::update() {
     auto read_cpu_usage = [this]() -> double {
         std::ifstream file("/proc/stat");
         if (!file.is_open()) {
-            std::cerr << "[metrics_cpu] Failed to open /proc/stat" << std::endl;
+            spdlog::error("[metrics_cpu] Failed to open /proc/stat");
             return 0.0;
         }
 
@@ -47,6 +47,5 @@ void metrics_cpu::update() {
     const double usage = read_cpu_usage();
     _cpu_usage_gauge->Set(usage);
 
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "[metrics_cpu] CPU Usage: " << usage << " %" << std::endl;
+    spdlog::info("[metrics_cpu] CPU Usage: {:.2f} %", usage);
 }

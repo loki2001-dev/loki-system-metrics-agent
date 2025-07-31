@@ -1,8 +1,9 @@
 #include "metrics_disk.h"
 #include <sys/statvfs.h>
-#include <iostream>
 #include <iomanip>
 #include <stdexcept>
+#include <sstream>
+#include <spdlog/spdlog.h>
 
 metrics_disk::metrics_disk(std::shared_ptr<prometheus::Registry> registry, const std::string& path)
     : _path(path) {
@@ -55,9 +56,8 @@ void metrics_disk::update() {
         _disk_total_gauge->Set(total);
         _disk_available_gauge->Set(available);
 
-        std::cout << "[metrics_disk] Disk Total: " << format_bytes(total)
-                  << ", Available: " << format_bytes(available) << std::endl;
+        spdlog::info("[metrics_disk] Disk Total: {}, Available: {}", format_bytes(total), format_bytes(available));
     } catch (const std::exception& e) {
-        std::cerr << "[metrics_disk] Exception in update: " << e.what() << std::endl;
+        spdlog::error("[metrics_disk] Exception in update: {}", e.what());
     }
 }

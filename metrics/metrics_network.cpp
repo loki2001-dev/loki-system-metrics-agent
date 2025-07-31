@@ -1,13 +1,13 @@
 #include "metrics_network.h"
+#include <spdlog/spdlog.h>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 #include <iomanip>
 
 metrics_network::metrics_network(std::shared_ptr<prometheus::Registry> registry) {
     _interface_name = detect_interface();
     if (_interface_name.empty()) {
-        std::cerr << "[metrics_network] No valid interface found\n";
+        spdlog::error("[metrics_network] No valid interface found");
         return;
     }
 
@@ -23,7 +23,7 @@ metrics_network::metrics_network(std::shared_ptr<prometheus::Registry> registry)
         .Register(*registry);
     _tx_bytes_gauge = &tx_family.Add({{"interface", _interface_name}});
 
-    std::cout << "[metrics_network] Auto-detected interface: " << _interface_name << std::endl;
+    spdlog::info("[metrics_network] Auto-detected interface: {}", _interface_name);
 }
 
 metrics_network::~metrics_network() {
@@ -110,11 +110,12 @@ void metrics_network::update() {
             return oss.str();
         };
 
-        std::cout << "[metrics_network] Interface: " << _interface_name
-                  << ", RX: " << format_bytes(rx)
-                  << ", TX: " << format_bytes(tx) << std::endl;
+        spdlog::info("[metrics_network] Interface: {}, RX: {}, TX: {}",
+                     _interface_name,
+                     format_bytes(rx),
+                     format_bytes(tx));
 
     } catch (const std::exception& e) {
-        std::cerr << "[metrics_network] Exception in update: " << e.what() << std::endl;
+        spdlog::error("[metrics_network] Exception in update: {}", e.what());
     }
 }

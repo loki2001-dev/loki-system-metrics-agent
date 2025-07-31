@@ -1,9 +1,9 @@
 #include "metrics_memory.h"
 #include <fstream>
 #include <iomanip>
-#include <iostream>
 #include <sstream>
 #include <string>
+#include <spdlog/spdlog.h>
 
 using namespace prometheus;
 
@@ -38,7 +38,7 @@ void metrics_memory::update() {
     const auto& read_value_kb = [](const std::string& key) -> double {
         std::ifstream meminfo("/proc/meminfo");
         if (!meminfo.is_open()) {
-            std::cerr << "[metrics_memory] Failed to open /proc/meminfo" << std::endl;
+            spdlog::error("[metrics_memory] Failed to open /proc/meminfo");
             return 0;
         }
 
@@ -58,7 +58,7 @@ void metrics_memory::update() {
             }
         }
 
-        std::cerr << "[metrics_memory] Key not found: " << key << std::endl;
+        spdlog::error("[metrics_memory] Key not found: {}", key);
         return 0;
     };
 
@@ -67,15 +67,14 @@ void metrics_memory::update() {
         const auto& free = read_value_kb("MemFree");
         const auto& available = read_value_kb("MemAvailable");
 
-        std::cout << std::fixed << std::setprecision(2);
-        std::cout << "[metrics_memory] MemTotal: " << (total / 1024.0) << " MB" << std::endl;
-        std::cout << "[metrics_memory] MemFree: " << (free / 1024.0) << " MB" << std::endl;
-        std::cout << "[metrics_memory] MemAvailable: " << (available / 1024.0) << " MB" << std::endl;
+        spdlog::info("[metrics_memory] MemTotal: {:.2f} MB", total / 1024.0);
+        spdlog::info("[metrics_memory] MemFree: {:.2f} MB", free / 1024.0);
+        spdlog::info("[metrics_memory] MemAvailable: {:.2f} MB", available / 1024.0);
 
         _total_memory_gauge->Set(total * 1024.0);
         _free_memory_gauge->Set(free * 1024.0);
         _available_memory_gauge->Set(available * 1024.0);
     } catch (const std::exception& e) {
-        std::cerr << "[metrics_memory] Exception: " << e.what() << std::endl;
+        spdlog::error("[metrics_memory] Exception: {}", e.what());
     }
 }

@@ -49,4 +49,5 @@ TARGET_INCLUDE_DIRECTORIES(system-metrics-visualization-agent PRIVATE
 TARGET_LINK_LIBRARIES(system-metrics-visualization-agent
         prometheus-cpp::core
         prometheus-cpp::pull
+        spdlog::spdlog
 )
