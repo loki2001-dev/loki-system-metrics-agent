@@ -11,6 +11,7 @@
 
 #include "metrics/metrics_cpu.h"
 #include "metrics/metrics_memory.h"
+#include "metrics/metrics_disk.h"
 
 std::atomic<bool> running{true};
 
@@ -35,6 +36,7 @@ int32_t main(int32_t argc, char *argv[]) {
     const auto registry = std::make_shared<prometheus::Registry>();
     metrics_cpu cpu_monitor(registry);
     metrics_memory memory_monitor(registry);
+    metrics_disk disk_monitor(registry);
 
     prometheus::Exposer exposer{"127.0.0.1:9500"};
     exposer.RegisterCollectable(registry);
@@ -46,6 +48,8 @@ int32_t main(int32_t argc, char *argv[]) {
                 cpu_monitor.update();
                 // usage - memory
                 memory_monitor.update();
+                // usage - disk
+                disk_monitor.update();
             } catch (const std::exception& e) {
                 std::cerr << "[Error] Exception in update(): " << e.what() << std::endl;
             }
