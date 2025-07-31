@@ -15,12 +15,14 @@ SET(BUILD_PROMETHEUS_CPP_EXAMPLES OFF)
 
 # ADD 3rdparty
 ADD_SUBDIRECTORY(3rdparty/prometheus-cpp)
+ADD_SUBDIRECTORY(3rdparty/spdlog)
 
 # INCLUDE
 INCLUDE_DIRECTORIES(
         ${PROJECT_SOURCE_DIR}
         3rdparty/prometheus-cpp/core/include
         3rdparty/prometheus-cpp/pull/include
+        3rdparty/spdlog/include
 )
 
 # GLOB
@@ -33,6 +35,14 @@ FILE(GLOB_RECURSE METRICS_SOURCES
 ADD_EXECUTABLE(system-metrics-visualization-agent
         main.cpp
         ${METRICS_SOURCES}
+)
+
+# INCLUDE directories (OPTIONAL)
+TARGET_INCLUDE_DIRECTORIES(system-metrics-visualization-agent PRIVATE
+        ${PROJECT_SOURCE_DIR}
+        3rdparty/prometheus-cpp/core/include
+        3rdparty/prometheus-cpp/pull/include
+        3rdparty/spdlog/include
 )
 
 # LINK
