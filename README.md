@@ -1,4 +1,5 @@
 # system-metrics-visualization-agent (Modern C++ & Prometheus)
+- A Simple Project for Beginners and Juniors
 - A lightweight and extensible system health monitoring agent written in modern C++.
 - Built with [prometheus-cpp](https://github.com/jupp0r/prometheus-cpp), it exposes essential system metrics  
   such as CPU usage, memory usage, and disk I/O through a Prometheus-compatible HTTP endpoint.
@@ -18,6 +19,7 @@
 - Requires CMake 3.14 or later
 - Requires C++17 or later compiler
 - [prometheus-cpp](https://github.com/jupp0r/prometheus-cpp) (included as a submodule)
+- [spdlog](https://github.com/gabime/spdlog) (included as a submodule)
 
 ---
 
