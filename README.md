@@ -6,14 +6,15 @@
 ---
 
 ## Features
-- Real-time system metrics collection (CPU, memory, uptime, etc.)
-- Prometheus exporter endpoint (default: `:8080/metrics`)
+- Real-time system metrics collection (CPU, Memory, Disk, Network)
+- Prometheus exporter endpoint (default: `:9500/metrics`)
 - Grafana-ready visualization support
 
 ---
 
 ## Getting Started
 ### Prerequisites
+- Linux (Ubuntu 20.04 or later recommended)
 - Requires CMake 3.14 or later
 - Requires C++17 or later compiler
 - [prometheus-cpp](https://github.com/jupp0r/prometheus-cpp) (included as a submodule)
@@ -21,23 +22,29 @@
 ---
 
 ## Build Instructions
-### Example
+### Setup and Installation
 ```bash
+# Update package lists
 sudo apt update
 
-# Install the libcurl4-openssl-dev package(for. prometheus-cpp).
-sudo apt install libcurl4-openssl-dev
+# Install dependencies (libcurl required for prometheus-cpp)
+sudo apt install -y libcurl4-openssl-dev
 
 # Clone the repository
 git clone https://github.com/loki2001-dev/system-metrics-visualization-agent.git
-cd sys-metrics-visualization-agent
+cd system-metrics-visualization-agent
 
 # Initialize submodule
 git submodule update --init --recursive
 
+# Install Grafana (script included in the project)
+. install_grafana.sh
+
+# Install Prometheus (script included in the project)
+. install_prometheus.sh
+
+# Start Prometheus and Grafana services
+. run_prometheus_grafana.sh
+
 # Build the project
-rm -rf build
-mkdir -p build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build .
+. build_project.sh
