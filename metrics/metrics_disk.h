@@ -10,7 +10,7 @@
 
 class metrics_disk : public std::enable_shared_from_this<metrics_disk>{
 public:
-    explicit metrics_disk(std::shared_ptr<prometheus::Registry> registry, const std::string& path = "/");
+    explicit metrics_disk(const std::shared_ptr<prometheus::Registry>& registry, std::string  path = "/");
     virtual ~metrics_disk();
 
     void update();

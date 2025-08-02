@@ -10,13 +10,13 @@
 
 class metrics_network : public std::enable_shared_from_this<metrics_network>{
 public:
-    explicit metrics_network(std::shared_ptr<prometheus::Registry> registry);
+    explicit metrics_network(const std::shared_ptr<prometheus::Registry>& registry);
     virtual ~metrics_network();
 
     void update();
 
 private:
-    std::string detect_interface();
+    static std::string detect_interface();
     double read_rx_bytes();
     double read_tx_bytes();
 

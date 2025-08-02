@@ -1,13 +1,12 @@
 #include "metrics_memory.h"
 #include <fstream>
-#include <iomanip>
 #include <sstream>
 #include <string>
 #include <spdlog/spdlog.h>
 
 using namespace prometheus;
 
-metrics_memory::metrics_memory(std::shared_ptr<Registry> registry) {
+metrics_memory::metrics_memory(const std::shared_ptr<Registry>& registry) {
     // total
     auto& total_family = BuildGauge()
         .Name("system_memory_total_bytes")

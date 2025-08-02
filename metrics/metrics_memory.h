@@ -9,7 +9,7 @@
 
 class metrics_memory : public std::enable_shared_from_this<metrics_memory> {
 public:
-    explicit metrics_memory(std::shared_ptr<prometheus::Registry> registry);
+    explicit metrics_memory(const std::shared_ptr<prometheus::Registry>& registry);
     virtual ~metrics_memory();
 
     void update();

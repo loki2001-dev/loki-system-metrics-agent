@@ -9,7 +9,7 @@
 
 class metrics_cpu : public std::enable_shared_from_this<metrics_cpu>{
 public:
-    explicit metrics_cpu(std::shared_ptr<prometheus::Registry> registry);
+    explicit metrics_cpu(const std::shared_ptr<prometheus::Registry>& registry);
     virtual ~metrics_cpu();
 
     void update();

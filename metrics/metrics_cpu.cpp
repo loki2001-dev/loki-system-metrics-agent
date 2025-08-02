@@ -1,11 +1,9 @@
 #include "metrics_cpu.h"
 #include <fstream>
-#include <iomanip>
 #include <string>
-#include <sstream>
 #include <spdlog/spdlog.h>
 
-metrics_cpu::metrics_cpu(std::shared_ptr<prometheus::Registry> registry)
+metrics_cpu::metrics_cpu(const std::shared_ptr<prometheus::Registry>& registry)
     : _prevTotal(0), _prevIdle(0) {
     auto& family = prometheus::BuildGauge()
         .Name("system_cpu_usage")

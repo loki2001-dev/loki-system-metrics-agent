@@ -3,10 +3,11 @@
 #include <iomanip>
 #include <stdexcept>
 #include <sstream>
+#include <utility>
 #include <spdlog/spdlog.h>
 
-metrics_disk::metrics_disk(std::shared_ptr<prometheus::Registry> registry, const std::string& path)
-    : _path(path) {
+metrics_disk::metrics_disk(const std::shared_ptr<prometheus::Registry>& registry, std::string  path)
+    : _path(std::move(path)) {
     auto& total_family = prometheus::BuildGauge()
         .Name("system_disk_total_bytes")
         .Help("Total disk space in bytes")

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iomanip>
 
-metrics_network::metrics_network(std::shared_ptr<prometheus::Registry> registry) {
+metrics_network::metrics_network(const std::shared_ptr<prometheus::Registry>& registry) {
     _interface_name = detect_interface();
     if (_interface_name.empty()) {
         spdlog::error("[metrics_network] No valid interface found");

@@ -6,7 +6,7 @@
 #include <csignal>
 #include <iostream>
 #include <memory>
-#include <stdint.h>
+#include <cstdint>
 #include <thread>
 
 #include "metrics/metrics_cpu.h"
@@ -31,7 +31,7 @@ void initialize() {
     }
 }
 
-int32_t main(int32_t argc, char *argv[]) {
+int32_t main([[maybe_unused]] int32_t argc, [[maybe_unused]] char *argv[]) {
     initialize();
 
     const auto registry = std::make_shared<prometheus::Registry>();
